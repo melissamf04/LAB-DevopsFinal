@@ -53,8 +53,6 @@ jobs:
     name: Deploy to Vercel
     runs-on: ubuntu-latest
     needs: test
-    # Secrets required: VERCEL_TOKEN (token with deploy permissions)
-    # Optional: VERCEL_ORG_ID and VERCEL_PROJECT_ID if you want to target a specific project/org
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
