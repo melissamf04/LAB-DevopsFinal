@@ -8,42 +8,43 @@ env:
   REGISTRY: ghcr.io
   IMAGE_NAME: impactamel/api-escolar
 
-  jobs:
-    build:
-      name: Build (no push)
-      runs-on: ubuntu-latest
-      steps:
-        - name: Checkout repository
-          uses: actions/checkout@v4
+jobs:
+  build:
+    name: Build (no push)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-        - name: Setup Python
-          uses: actions/setup-python@v5
-          with:
-            python-version: '3.11'
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
 
-        - name: instalando dependências 
-          run: pip-install -r requirements.txt
-          
-        - name: build do docker
-          run: docker build -t api-escola .
-    test:
-      name: Teste
-      runs-on: ubuntu-latest
-      needs: build
-      steps:
-        - name: Checkout repository
-          uses: actions/checkout@v4
+      - name: Instalando dependências
+        run: pip install -r requirements.txt
 
-        - name: Setup Python
-          uses: actions/setup-python@v5
-          with:
-            python-version: '3.11'
+      - name: Build do Docker
+        run: docker build -t api-escola .
 
-        - name: instalando dependências 
-          run: pip-install -r requirements.txt
-          
-        - name: build do docker
-          run: docker build -t api-escola .
+  test:
+    name: Teste
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-        - name: teste dentro do docker
-          run: docker run --rm api-escola python -m unittest test_app -v
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Instalando dependências
+        run: pip install -r requirements.txt
+
+      - name: Build do Docker
+        run: docker build -t api-escola .
+
+      - name: Teste dentro do Docker
+        run: docker run --rm api-escola python -m unittest test_app -v
