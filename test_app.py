@@ -10,10 +10,10 @@ class APITestCase(unittest.TestCase):
     @classmethod
     def setUpClass(cls):        cls.client = app.test_client()
 
-    def test_status_inicio_400(self):
+    def test_status_inicio_200(self):
         # Se a home responde com 400
         response = self.client.get('/')
-        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.status_code, 200)
 
     def test_itens_200(self):
         # Se items responde com status 200
